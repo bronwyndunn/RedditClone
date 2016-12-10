@@ -22,4 +22,12 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_url
     end
   end
+
+  def ensure_is_author!(post)
+    if current_user.id == post.author_id
+      true
+    else
+      false
+    end
+  end
 end

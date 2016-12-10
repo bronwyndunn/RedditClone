@@ -1,0 +1,13 @@
+<h1><%=@post.title%></h1>
+
+<h3>Content</h3>
+
+<%=@post.content%>
+<br>
+<br>
+<%= link_to 'Make new post!', new_post_url %>
+<br>
+<br>
+<% if current_user.id == @post.user_id %>
+  <%= button_to 'Edit', edit_post_url(@post), method: 'get' %>
+<% end %>

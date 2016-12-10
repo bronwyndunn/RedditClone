@@ -11,6 +11,7 @@ class SubsController < ApplicationController
 
   def create
     my_sub = Sub.new(sub_params)
+    my_sub.user_id = current_user.id
     if my_sub.save
       redirect_to sub_url(my_sub)
     else
@@ -20,7 +21,7 @@ class SubsController < ApplicationController
   end
 
   def show
-    my_sub = Sub.find_by(:id => params[:id])
+    @my_sub = Sub.find_by(:id => params[:id])
     render :show
   end
 
@@ -42,6 +43,6 @@ class SubsController < ApplicationController
   private
 
   def sub_params
-    params.require(:sub).permit(:title, :description, :user_id)
+    params.require(:sub).permit(:title, :description)
   end
 end

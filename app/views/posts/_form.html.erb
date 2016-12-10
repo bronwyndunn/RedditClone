@@ -1,0 +1,38 @@
+<% action_url = action=='edit' ? post_url(post) : posts_url %>
+<% http_method = action=='edit' ? "PATCH" : "POST"  %>
+<% submit_button = action=='edit' ? 'Edit post' : 'New post' %>
+
+<form action=" <%= action_url %> " method="post">
+  <input type="hidden" name="authenticity_token" value=" <%=form_authenticity_token%>">
+  <input type="hidden" name="_method" value="<%=http_method%>">
+
+  <label>Title
+    <input type="text" name="post[title]" value="<%=post.title%>">
+  </label>
+  <br>
+  <br>
+  <label>Url
+    <input type="text" name="post[url]" value="<%=post.url%>">
+  </label>
+  <br>
+  <br>
+  <label>Content
+  <textarea name="post[content]" rows="8" cols="80"><%=post.content%></textarea>
+  </label>
+  <br>
+  <br>
+
+  <% Sub.all.each do |s| %>
+
+  <label>
+    <input type="checkbox"
+    name="post[sub_ids][]"
+    value="<%= s.id %>"
+    <%= "checked" if post.sub_ids.include?(s.id) %> >
+  <%= s.title %></label>
+  <br>
+  <% end %>
+
+  <input type="submit" name="<%submit_button%>">
+
+</form>
